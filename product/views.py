@@ -2,8 +2,8 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 from rest_framework.response import Response
 
-from product.models import Category, Producty, Review
-from product.serializers import CategorySerializer, ProductySerializer, ReviewSerializer, CategoryRetrieveSerializer, ProductyRetrieveSerializer, ReviewRetrieveSerializer
+from product.models import Category, Review, Producty
+from product.serializers import CategorySerializer,  ReviewSerializer, ProductySerializer, CategoryRetrieveSerializer, ReviewRetrieveSerializer, ProductyRetrieveSerializer
 
 @api_view(['GET'])
 def hello_api_view(request):
@@ -19,14 +19,6 @@ def category_list_api_view(request):
     return Response(data=data, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
-def producty_list_api_view(request):
-    product = Producty.objects.all()
-
-    data = ProductySerializer(product, many=True).data
-
-    return Response(data=data, status=status.HTTP_200_OK)
-
-@api_view(['GET'])
 def review_list_api_view(request):
     product = Review.objects.all()
 
@@ -35,10 +27,26 @@ def review_list_api_view(request):
     return Response(data=data, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
+def producty_list_api_view(request):
+    product = Producty.objects.all()
+
+    data = ProductySerializer(product, many=True).data
+
+    return Response(data=data, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
 def category_retrieve_api_view(request, **kwargs):
     category = Category.objects.get(id=kwargs['id'])
 
     data = CategoryRetrieveSerializer(category, many=False).data
+    return Response(data=data, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def review_retrieve_api_view(request, **kwargs):
+    review = Review.objects.get(id=kwargs['id'])
+
+    data = ReviewRetrieveSerializer(review, many=False).data
     return Response(data=data, status=status.HTTP_200_OK)
 
 
@@ -49,10 +57,3 @@ def producty_retrieve_api_view(request, **kwargs):
     data = ProductyRetrieveSerializer(producty, many=False).data
     return Response(data=data, status=status.HTTP_200_OK)
 
-
-@api_view(['GET'])
-def review_retrieve_api_view(request, **kwargs):
-    review = Review.objects.get(id=kwargs['id'])
-
-    data = ReviewRetrieveSerializer(review, many=False).data
-    return Response(data=data, status=status.HTTP_200_OK)

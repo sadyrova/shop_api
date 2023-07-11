@@ -19,18 +19,18 @@ from django.urls import path
 from django.conf.urls.static import static
 from shop_api import settings
 
-from product.views import hello_api_view, category_list_api_view, producty_list_api_view, review_list_api_view, category_retrieve_api_view, producty_retrieve_api_view, review_retrieve_api_view
+from product.views import hello_api_view, category_list_api_view, producty_list_api_view, review_list_api_view, category_retrieve_api_view, review_retrieve_api_view, producty_retrieve_api_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('hello/', hello_api_view),
-    path('category/', category_list_api_view),
-    path('producty/', producty_list_api_view),
-    path('review/', review_list_api_view),
-    path('category/<int:id>/', category_retrieve_api_view),
-    path('producty/<int:id>/', producty_retrieve_api_view),
-    path('rewiew/<int:id>/', review_retrieve_api_view)
+    path('api/category/', category_list_api_view),
+    path('api/review/', review_list_api_view),
+    path('api/producty/', producty_list_api_view),
+    path('api/category/<int:id>/', category_retrieve_api_view),
+    path('api/review/<int:id>/', review_retrieve_api_view),
+    path('api/producty/<int:id>/', producty_retrieve_api_view)
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
